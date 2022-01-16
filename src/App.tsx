@@ -81,6 +81,7 @@ function SolveSudoku(state: boxVal[][], n: number): boxVal[][] | null {
 
 function App() {
   const [state, setState] = useState<boxVal[][]>(initState.slice())
+  const [editable, setEditable] = useState(true)
   const [selected, setSelected] = useState({
     x: -1,
     y: -1
@@ -110,6 +111,7 @@ function App() {
 
   const handleSolve = () => {
     setSolving(true)
+    setEditable(false)
     const ret = SolveSudoku(state.slice(), 0)
     if (ret) {
       setState(ret)
@@ -121,6 +123,7 @@ function App() {
   }
 
   const onInput = (key: boxVal) => {
+    if (!editable) return
     if (selected.x != -1) {
       if (key) {
         if (cols[selected.y][key - 1] == false && rows[selected.x][key - 1] == false && boxes[(selected.x - selected.x % 3) + (selected.y - selected.y % 3) / 3][key - 1] == false) {
@@ -157,6 +160,7 @@ function App() {
   }
 
   const handleReset = () => {
+    setEditable(true)
     setState([
       [null, null, null, null, null, null, null, null, null],
       [null, null, null, null, null, null, null, null, null],
