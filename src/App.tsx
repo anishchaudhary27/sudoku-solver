@@ -95,18 +95,11 @@ function App() {
 
   const handleClick = (e: React.MouseEvent<HTMLParagraphElement, MouseEvent>, i: number, j: number) => {
     if (solving) return
-    if (selected.x === i && selected.y === j) {
-      setSelected({
-        x: -1,
-        y: -1
-      })
-    }
-    else {
-      setSelected({
-        x: i,
-        y: j
-      })
-    }
+    setSelected({
+      x: i,
+      y: j
+    })
+
   }
 
   const handleSolve = () => {
